@@ -1,0 +1,84 @@
+body{
+    font-family:'Montserrat';
+    font-weight: 400;
+    background-color: #E1F4F3;
+  }
+  
+  
+h1{
+font-family:'Montserrat',sans-serif;
+font-size:3.1rem;
+line-height:1.5;
+font-weight:900;
+}
+
+h2{
+font-family:'Montserrat',sans-serif;
+font-size:2.2rem;
+line-height:1.5;
+font-weight:400;
+}
+
+p{
+color:#fff;
+font-size:0.8rem;
+  }
+
+  /* sections */
+.black-section{
+    background-color: #333333;
+    padding:3% 20%;
+    color:#1cc5dc;
+  }
+  
+.white-section{
+background-color: #FFFFFF;
+padding:3% 20%;
+}
+
+.blue-section{
+background-color: #E1F4F3;
+}
+
+
+/* Input Area */
+.urlInput{
+  padding:3% 0;
+}
+.submitButton{
+  padding:0% 45% 0% 45%;
+}
+
+/* Result Area */
+.shadow-textarea textarea.form-control::placeholder {
+  font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+  padding-left: 0.8rem;
+  height: 100%;
+  width: 100%;
+}
+.accordion-button{
+color:#fff;
+font-family:'Montserrat',sans-serif;
+font-size:1.2rem;
+font-weight:700;
+background-color:#1cc5dc;
+}
+.accordion-body{
+background-color:#1cc5dc;
+color:#fff;
+font-family:'Montserrat',sans-serif;
+}
+
+/* footer */
+
+.social-icon{
+margin:20px 10px;
+}
+.icon-section{
+padding-bottom:20px
+}
+/* #accordionFlushExample{
+margin:5px 0px;
+} */
