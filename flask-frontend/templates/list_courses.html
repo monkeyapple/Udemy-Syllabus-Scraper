@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <h1>Here is a list of all courses:</h1>
+    <ul>
+        {% for course in courses %}
+        <li>{{pup}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
