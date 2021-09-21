@@ -4,7 +4,7 @@ import time
 import json
 import copy
 class Scraper():
-    def __init__(self,inputURL):
+    def scrape(self,inputURL):
         html=urlopen(inputURL)
         bs=BeautifulSoup(html.read(),'html.parser')
         div_raw=bs.find("div",{"class":"ud-component--course-landing-page-udlite--curriculum"})

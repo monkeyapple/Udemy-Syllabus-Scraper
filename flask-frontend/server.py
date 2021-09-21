@@ -50,16 +50,17 @@ def index():
     form=SearchForm()
     if form.validate_on_submit():
         result=[]
+        scraper=Scraper()
         displayResult=["# Table of Contents\n"]
-        link=form.course_link.data
-        # queryRow=CourseContent.query.filter_by(course_link=link).first()
-        scrapedData=Scraper(link)
+        link=form.courseLink.data
+        scrapedData=scraper.scrape(link)
         time.sleep(6)
         for i in scrapedData:
             for k,v in i.items():
                 displayResult.append("## "+k+"\n")
                 for m in v:
-                    displayResult.append("###"+m+"\n")
+                    displayResult.append("### "+m+"\n")
+        
         session['result']=displayResult
         return redirect(url_for('index'))
     return render_template('index.html',form=form,display=session.get('result',None))
