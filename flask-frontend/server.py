@@ -16,7 +16,7 @@ app.config['SECRET_KEY']='mysecretkey'
 
 ##########################################
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:854823@localhost/course_data'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 Migrate(app,db)
