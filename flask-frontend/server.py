@@ -49,38 +49,28 @@ class SearchForm(FlaskForm):
 def index():
     form=SearchForm()
     if form.validate_on_submit():
-        result=[]
-        scraper=Scraper()
-        displayResult=["# Table of Contents\n"]
         link=form.courseLink.data
-        scrapedData=scraper.scrape(link)
-        time.sleep(6)
-        for i in scrapedData:
-            for k,v in i.items():
-                displayResult.append("## "+k+"\n")
-                for m in v:
-                    displayResult.append("### "+m+"\n")
-        
+        queryRow=CourseContent.query.filter_by(course_link='link').first()
+        if queryRow:
+            displayResult=[queryRow.course_name,queryRow.course_link,queryRow.course_content]
+        else:
+            scraper=Scraper()
+            displayArray=["# Table of Contents\n"]
+            scrapedData=scraper.scrape(link)
+            time.sleep(6)
+            for i in scrapedData:
+                for k,v in i.items():
+                    displayArray.append("## "+k+"\n")
+                    for m in v:
+                        displayArray.append("### "+m+"\n")
+            displayResult=''.join(displayArray)
+            new_courseContent=CourseContent(link[29:],link,displayResult)
+            db.session.add(new_courseContent)
+            db.session.commit()
         session['result']=displayResult
         return redirect(url_for('index'))
     return render_template('index.html',form=form,display=session.get('result',None))
-        
 
-        # if queryRow:
-        #     result=[queryRow.course_name,queryRow.course_link,queryRow.course_content]
-        # else:
-        #     scrapedData=Scraper(link)
-        #     time.sleep(6)
-        #     for i in scrapedData:
-        #         for k,v in i.items():
-        #             displayResult.append("## "+k+"\n")
-        #             for m in v:
-        #                 displayResult.append("###"+m+"\n")
-            
-        #     new_record=CourseContent(link[29:],link,displayResult)
-        #     db.session.add()
-    #     return redirect(url_for('index'))
-    # return render_template('index.html',form=form,urlQuery=session.get('courseLink',None))
 
 @app.route('/list')
 def list_courses():

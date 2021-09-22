@@ -50,6 +50,9 @@ background-color: #E1F4F3;
 }
 
 /* Result Area */
+.copyButton{
+  margin:2% auto;
+}
 .shadow-textarea textarea.form-control::placeholder {
   font-weight: 300;
 }
@@ -70,6 +73,9 @@ background-color:#1cc5dc;
 color:#fff;
 font-family:'Montserrat',sans-serif;
 }
+
+/* CopiedAlert */
+
 
 /* footer */
 

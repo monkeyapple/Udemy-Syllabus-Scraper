@@ -1,2 +1,3 @@
-myDict={'a':[1,2,3]}
-print((myDict.items())[0])
+strArray=['a','b','c']
+strArray.join()
+print(strArray)
