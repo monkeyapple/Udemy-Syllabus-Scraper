@@ -15,7 +15,7 @@ app.config['SECRET_KEY']='mysecretkey'
         # SQL DATABASE AND MODELS
 
 ##########################################
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:854823@localhost/course_data'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:854823@localhost:5433/course_data'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -26,7 +26,7 @@ class CourseContent(db.Model):
     course_id=db.Column(db.Integer,primary_key=True)
     course_name=db.Column(db.String(80),nullable=False)
     course_link=db.Column(db.String(250),unique=True,nullable=False)
-    course_content=db.Column(db.String(80))
+    course_content=db.Column(db.Text)
 
     def __init__(self,course_name,course_link,course_content):
         self.course_name=course_name
@@ -51,9 +51,10 @@ def index():
     form=SearchForm()
     if form.validate_on_submit():
         link=form.courseLink.data
-        queryRow=CourseContent.query.filter_by(course_link='link').first()
+        queryRow=CourseContent.query.filter_by(course_link=link).first()
         if queryRow:
-            displayResult=[queryRow.course_name,queryRow.course_link,queryRow.course_content]
+            displayResult=[queryRow.course_content]
+            # queryRow.course_name,queryRow.course_link
         else:
             scraper=Scraper()
             displayArray=["# Table of Contents\n"]
@@ -75,8 +76,9 @@ def index():
 
 @app.route('/list')
 def list_courses():
-    courses=CourseContent.query.all()
+    courses=coursecontent.query.all()
     return render_template('list_courses',courses=courses)
 
 if __name__=='__main__':
+    db.create_all()
     app.run(debug=True)
