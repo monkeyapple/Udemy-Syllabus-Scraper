@@ -6,9 +6,7 @@ from scraper import Scraper
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import time
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config
+from config import config
 
 app=Flask(__name__)
 app.config['SECRET_KEY']='mysecretkey'
@@ -18,12 +16,13 @@ app.config['SECRET_KEY']='mysecretkey'
         # SQL DATABASE AND MODELS
 
 ##########################################
-params=config()
+# config will return a dictionary
+params=config() 
 DB_URI = 'postgresql+psycopg2://{user}:{pw}@{host}/{db}'.format(
-    user=config['udemy-scrape-postgresql']['user'],
-    pw=config['udemy-scrape-postgresql']['password'],
-    host=config['udemy-scrape-postgresql']['host'],
-    db=config['udemy-scrape-postgresql']['dbname'])
+    user=params['udemy-scrape-postgresql']['user'],
+    pw=params['udemy-scrape-postgresql']['password'],
+    host=params['udemy-scrape-postgresql']['host'],
+    db=params['udemy-scrape-postgresql']['dbname'])
 
 app.config['SQLALCHEMY_DATABASE_URI']=DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -90,5 +89,4 @@ def list_courses():
     return render_template('list_courses',courses=courses)
 
 if __name__=='__main__':
-    db.create_all()
     app.run(debug=True)
