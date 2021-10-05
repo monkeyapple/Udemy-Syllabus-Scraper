@@ -7,9 +7,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import time
 from config import config
+from flaskext.markdown import Markdown
 
 app=Flask(__name__)
-app.config['SECRET_KEY']='mysecretkey'
+Markdown(app)
+
+app.config['SECRET_KEY']='onlinecoursesecretkey'
 
 ############################################
 
@@ -18,11 +21,13 @@ app.config['SECRET_KEY']='mysecretkey'
 ##########################################
 # config will return a dictionary
 params=config() 
-DB_URI = 'postgresql+psycopg2://{user}:{pw}@{host}/{db}'.format(
+DB_URI = 'postgresql://{user}:{pw}@{host}:{port}/{db}'.format(
     user=params['udemy-scrape-postgresql']['user'],
     pw=params['udemy-scrape-postgresql']['password'],
     host=params['udemy-scrape-postgresql']['host'],
+    port=params['udemy-scrape-postgresql']['port'],
     db=params['udemy-scrape-postgresql']['dbname'])
+
 
 app.config['SQLALCHEMY_DATABASE_URI']=DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -48,8 +53,8 @@ class CourseContent(db.Model):
 ##################### Form #######################
 ###################################################
 class SearchForm(FlaskForm):
-    courseLink=StringField('Enter the course URL:',validators=[Regexp('https:\/\/www\.udemy\.com\/course\/[\d*\w*\-*]{1,256}\/',message="Please enter the correct Udemy course URL!")])
-    submit=SubmitField('Search')
+    courseLink=StringField('Enter the Udemy course URL:',validators=[Regexp('https:\/\/www\.udemy\.com\/course\/[\d*\w*\-*]{1,256}\/',message="Please enter the correct Udemy course URL!")])
+    submit=SubmitField('Get it')
 
 ###################################################
 ###################### View #######################
@@ -57,36 +62,38 @@ class SearchForm(FlaskForm):
 
 @app.route('/',methods=['GET','POST'])
 def index():
+
     form=SearchForm()
     if form.validate_on_submit():
         link=form.courseLink.data
         queryRow=CourseContent.query.filter_by(course_link=link).first()
         if queryRow:
-            displayResult=[queryRow.course_content]
-            # queryRow.course_name,queryRow.course_link
+            displayResult=[queryRow.course_name,queryRow.course_content]
         else:
             scraper=Scraper()
-            displayArray=["# Table of Contents\n"]
+            displayArray=["# Course content"+"\n"]
             scrapedData=scraper.scrape(link)
             time.sleep(6)
             for i in scrapedData:
                 for k,v in i.items():
-                    displayArray.append("## "+k+"\n")
+                    displayArray.append("### "+k+"\n")
                     for m in v:
-                        displayArray.append("### "+m+"\n")
-            displayResult=''.join(displayArray)
-            new_courseContent=CourseContent(link[29:],link,displayResult)
+                        displayArray.append("*"+" "+m+"\n")
+            contentResult=''.join(displayArray)
+            displayResult=[link[29:-1],contentResult]
+            new_courseContent=CourseContent(link[29:-1],link,displayResult)
             db.session.add(new_courseContent)
             db.session.commit()
         session['result']=displayResult
+
         return redirect(url_for('index'))
-    return render_template('index.html',form=form,display=session.get('result',None))
+    return render_template('index.html',form=form,display=session.get('result',['Course Name','the results will be displayed here...']))
 
 
 @app.route('/list')
 def list_courses():
-    courses=coursecontent.query.all()
-    return render_template('list_courses',courses=courses)
+    courses=CourseContent.query.all()
+    return render_template('list_courses.html',courses=courses)
 
 if __name__=='__main__':
     app.run(debug=True)

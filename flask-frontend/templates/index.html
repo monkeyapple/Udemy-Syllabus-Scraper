@@ -1,7 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
+
+<!-- Nav Bar -->
+<div class="container-fluid">
+  <div class="nav-section"> 
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+      <a class="navbar-brand" href="">
+        <img src="/static/images/Markdown-mark.svg.png" alt="" width="30" height="20" class="d-inline-block align-text-center">
+        Syllabus Scraper
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#footer"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#pricing"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cta"></a>
+          </li>
+        </ul>
+
+      </div>-->
+    </nav>
+  </div>
 <!-- Input Section -->
-<div class="container-fluid black-section">
+  <div class="black-section">
     <form method="POST">
         <div class="urlInput row">
             {{form.hidden_tag()}}
@@ -12,11 +43,13 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <div class="submitButton row">
+        <div class="text-center">
             {{form.submit(class="btn btn-outline-light")}}
+            <p>If the course isn't in our database, it will take 10-20 seconds to load the result</p>
         </div>
+        
     </form>
-
+  </div>
 </div>
 
 <!-- JavaScript Bundle with Popper -->
@@ -24,55 +57,74 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-function copyText() {
+function copyText1() {
   /* Get the text field */
-  var copyText = document.getElementById("resultTextArea");
+  var copyText1 = document.getElementById("markdownArea");
 
   /* Select the text field */
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+  copyText1.select();
+  copyText1.setSelectionRange(0, 99999); /* For mobile devices */
 
    /* Copy the text inside the text field */
-  navigator.clipboard.writeText(copyText.value);
+  navigator.clipboard.writeText(copyText1.value);
 }
 </script>
 
-<!-- Result Section -->
-<div class="container-fluid white-section" id="resultArea">
-    <div class="form-group shadow-textarea">
-      <label for="resultTextArea"></label>
-      <textarea class="form-control z-depth-1" id="resultTextArea" rows="20" placeholder="The results will be shown here...">{{display}}</textarea>
-    </div>
-    <div class="copyButton">
-      <button type="button" class="btn btn-dark" onclick="copyText()">
-        Copy All
-      </button>
-</div>
-    </div>
+
+<!-- Result -->
+<div class="container-fluid white-section">
+
+  <div class="textTitle"><h2>{{display[0]}}</h2></div>
+  <div class="align-self-center" id="resultArea">
+    <label for="markdownArea"></label>
+    <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="The markdown will be shown here...">{{display[1]}}</textarea>
+  </div>
+  <div class="optionButtons">
+    <button type="button" class="btn btn-warning" onclick="copyText1()">
+    Copy All
+    </button>
+  </div>
+
+
+ <!-- Collapse -->
+  <div class="hrcollapse">
+    <hr>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Show Markdown Results
+    </button>
+    <hr>
+  </div>
+
+  <div class="collapse" id="collapseExample">
+  {{display[1]|markdown}}
+  </div>
+
 </div>
 
+
+  
 <!-- Footer -->
 <div class=container-fluid red-section id="footerArea">
-    <footer class="text-center text-white" style="background-color: #E1F4F3;">
+    <footer class="text-center text-white" style="background-color: #333333;">
     <!-- Grid container -->
     <div class="container pt-4">
       <!-- Section: Social media -->
       <section class="mb-4 icon-section">
         <!-- Twitter -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
+        <a class="btn btn-link btn-floating btn-lg text-white m-1"
           href="https://twitter.com/EffyLH20"
           role="button"
           ><i class="fab fa-twitter"></i
         ></a>
   
         <!-- Google -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
+        <a class="btn btn-link btn-floating btn-lg text-white m-1"
           href="mailto:monkeyappleh@gmail.com"
           role="button"
           ><i class="fab fa-google"></i
         ></a>
         <!-- Github -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
+        <a class="btn btn-link btn-floating btn-lg text-white m-1"
           href="https://github.com/monkeyapple"
           role="button"
           ><i class="fab fa-github"></i
@@ -101,7 +153,7 @@ function copyText() {
           data-mdb-ripple-color="dark"
           ><i class="fab fa-facebook-f"></i
         ></a> -->
-        <p style="color:#333333;">© Copyright 2021 Curriculum Scraper</p>
+        <p style="color:#ffffff;">© Copyright 2021 Curriculum Scraper</p>
       </section>
     </div>
   

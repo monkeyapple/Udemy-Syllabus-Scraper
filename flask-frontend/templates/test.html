@@ -1,0 +1,34 @@
+<div class="container-fluid white-section">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="textTitle"><h1>MarkDown</h1></div>
+      <div class="align-self-center" id="resultArea">
+        <label for="markdownArea"></label>
+        <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="The markdown will be shown here...">{{display}}</textarea>
+      </div>
+      <div class="row">
+        <div class="optionButtons">
+          <button type="button" class="btn btn-warning" onclick="copyText1()">
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="textTitle"><h1>HTML</h1></div>
+      <div class="align-self-center" id="resultArea">
+        <label for="resultsArea"></label>
+        <textarea readonly class="form-control form-control-sm" id="resultsArea" rows="25" placeholder="The results will be shown here..." >{{display|markdown}}</textarea>
+      </div>
+
+      <div class="row">
+        <div class="optionButtons">
+          <button type="button" class="btn btn-warning lign-self-end" onclick="copyText2()">
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
