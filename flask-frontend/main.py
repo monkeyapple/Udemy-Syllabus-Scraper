@@ -6,8 +6,9 @@ from scraper import Scraper
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import time
-from config import config
+# from config import config
 from flaskext.markdown import Markdown
+from db import read_config,connection_uri
 
 app=Flask(__name__)
 Markdown(app)
@@ -19,15 +20,8 @@ app.config['SECRET_KEY']='onlinecoursesecretkey'
         # SQL DATABASE AND MODELS
 
 ##########################################
-# config will return a dictionary
-params=config() 
-DB_URI = 'postgresql://{user}:{pw}@{host}:{port}/{db}'.format(
-    user=params['udemy-scrape-postgresql']['user'],
-    pw=params['udemy-scrape-postgresql']['password'],
-    host=params['udemy-scrape-postgresql']['host'],
-    port=params['udemy-scrape-postgresql']['port'],
-    db=params['udemy-scrape-postgresql']['dbname'])
 
+DB_URI = connection_uri()
 
 app.config['SQLALCHEMY_DATABASE_URI']=DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -46,6 +40,8 @@ class CourseContent(db.Model):
         self.course_name=course_name
         self.course_link=course_link
         self.course_content=course_content
+
+
     def __repr__(self):
         return f"Course name is:{self.course_name}"
 
@@ -81,13 +77,13 @@ def index():
                         displayArray.append("*"+" "+m+"\n")
             contentResult=''.join(displayArray)
             displayResult=[link[29:-1],contentResult]
-            new_courseContent=CourseContent(link[29:-1],link,displayResult)
+            new_courseContent=CourseContent(link[29:-1],link,contentResult)
             db.session.add(new_courseContent)
             db.session.commit()
         session['result']=displayResult
 
         return redirect(url_for('index'))
-    return render_template('index.html',form=form,display=session.get('result',['Course Name','the results will be displayed here...']))
+    return render_template('index.html',form=form,display=session.get('result',['-Course Name-','The course content will be displayed here...']))
 
 
 @app.route('/list')

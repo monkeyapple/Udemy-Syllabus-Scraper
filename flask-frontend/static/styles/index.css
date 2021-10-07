@@ -21,13 +21,13 @@ font-weight:300;
 
 h3{
 font-family:'Montserrat',sans-serif;
-font-size:1rem;
+font-size:1.2rem;
 line-height:1;
-font-weight:100;
+font-weight:200;
 }
 
 p{
-color:rgb(126, 126, 126);
+color:rgb(209, 209, 209);
 font-size:0.8rem;
 margin-top:8px;
   }
