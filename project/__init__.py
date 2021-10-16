@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flaskext.markdown import Markdown
-from project.udemy.storage import connection_uri
+from project.storage import connection_uri
 
 app=Flask(__name__)
 Markdown(app)
