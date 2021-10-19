@@ -19,7 +19,4 @@ class Scraper():
             headerOne[idx][i['title']]=arrayValue
             headerTwo.clear()
         return headerOne
-        
-    
-# if __name__ == "__main__":
-#     Scraper("https://www.udemy.com/course/rest-api-flask-and-python/")
+       
