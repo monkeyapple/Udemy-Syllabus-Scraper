@@ -2,26 +2,30 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flaskext.markdown import Markdown
-from project.udemy.storage import connection_uri
+from flask_session import Session
+from flask_caching import Cache
+import os
 
 app=Flask(__name__)
-Markdown(app)
 
-app.config['SECRET_KEY']='onlinecoursesecretkey'
+app.config.from_mapping(
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev_key',
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL'),
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+)
+
+#####################################
+    #Memcache for session storage#
+#####################################
 
 ############################################
-
-        # SQL DATABASE AND MODELS
-
+        # SQL DATABASE
 ##########################################
-
-DB_URI = connection_uri()
-
-app.config['SQLALCHEMY_DATABASE_URI']=DB_URI
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 Migrate(app,db)
+Markdown(app)
+
 
 from project.udemy.views import index_blueprint
 app.register_blueprint(index_blueprint,url_prefix='/')

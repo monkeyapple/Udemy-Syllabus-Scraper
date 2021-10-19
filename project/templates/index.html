@@ -70,18 +70,27 @@ function copyText1() {
 }
 </script>
 
+<script type="text/javascript">
+function clearContent(){
+  $('#markdownArea').val("");
+}
+
+</script>
 
 <!-- Result -->
 <div class="container-fluid white-section">
 
-  <div class="textTitle"><h2>{{display[0]}}</h2></div>
+  <div class="textTitle"><h2>{{name}}</h2></div>
   <div class="align-self-center" id="resultArea">
     <label for="markdownArea"></label>
-    <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="The markdown will be shown here...">{{display[1]}}</textarea>
+    <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="">{{content}}</textarea>
   </div>
   <div class="optionButtons">
     <button type="button" class="btn btn-warning" onclick="copyText1()">
-    Copy All
+    Copy
+    </button>
+    <button type="button" class="btn btn-warning" onclick="clearContent()">
+    Clear
     </button>
   </div>
 
@@ -94,9 +103,9 @@ function copyText1() {
     </button>
     <hr>
   </div>
-
-  <div class="collapse" id="collapseExample">
-  {{display[1]|markdown}}
+ 
+  <div class="collapse showresult" id="collapseExample">
+    {{content|markdown}}
   </div>
 
 </div>

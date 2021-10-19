@@ -13,14 +13,11 @@ index_blueprint=Blueprint('index_page',__name__)
 
 @index_blueprint.route('/',methods=['GET','POST'])
 def index():
-
     form=SearchForm()
     if form.validate_on_submit():
         link=form.courseLink.data
         queryRow=CourseContent.query.filter_by(course_link=link).first()
-        if queryRow:
-            displayResult=[queryRow.course_name,queryRow.course_content]
-        else:
+        if queryRow==None:
             scraper=Scraper()
             displayArray=["# Course content"+"\n"]
             scrapedData=scraper.scrape(link)
@@ -31,14 +28,18 @@ def index():
                     for m in v:
                         displayArray.append("*"+" "+m+"\n")
             contentResult=''.join(displayArray)
-            displayResult=[link[29:-1],contentResult]
+            session['name']=link[29:-1]
+            session['content']=contentResult
             new_courseContent=CourseContent(link[29:-1],link,contentResult)
             db.session.add(new_courseContent)
             db.session.commit()
-        session['result']=displayResult
+        else:
+            session['name']=queryRow.course_name
+            session['content']=queryRow.course_content
 
         return redirect(url_for('index_page.index'))
-    return render_template('index.html',form=form,display=session.get('result',['-Course Name-','The course content will be displayed here...']))
+    return render_template('index.html',form=form,name=session.get('name','-Course Name-'),content=session.get('content','The course content will be displayed here...'))
+
 
 
 @index_blueprint.route('/list')
