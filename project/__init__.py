@@ -3,43 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flaskext.markdown import Markdown
 from flask_session import Session
-from flask_caching import Cache
 import os
-import pylibmc
+
 
 app=Flask(__name__)
-servers = os.environ.get('MEMCACHIER_SERVERS')
-username = os.environ.get('MEMCACHIER_USERNAME')
-passwd = os.environ.get('MEMCACHIER_PASSWORD')
 
 app.config.from_mapping(
     SECRET_KEY = os.environ.get('SECRET_KEY'),
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1),
-    SQLALCHEMY_TRACK_MODIFICATIONS = False,
-    SESSION_TYPE = 'memcached',
-    SESSION_MEMCACHED =
-    pylibmc.Client(cache_servers.split(','), binary = True,
-        username = cache_user, password = cache_pass,
-        behaviors = {
-
-            # Faster IO
-            'tcp_nodelay': True,
-            # Keep connection alive
-            'tcp_keepalive': True,
-            # Timeout for set/get requests
-            'connect_timeout': 2000, # ms
-            'send_timeout': 750 * 1000, # us
-            'receive_timeout': 750 * 1000, # us
-            '_poll_timeout': 2000, # ms
-            # Better failover
-            'ketama': True,
-            'remove_failed': 1,
-            'retry_timeout': 2,
-            'dead_timeout': 30,
-        })
+    SQLALCHEMY_TRACK_MODIFICATIONS = False, 
 )
-Session(app)
-
 
 ############################################
         # SQL DATABASE
