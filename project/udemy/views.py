@@ -1,4 +1,4 @@
-from flask import Blueprint,session,redirect,jsonify,request,redirect,url_for,render_template
+from flask import Blueprint,session,redirect,redirect,url_for,render_template
 from project import db
 from project.models import CourseContent
 from project.udemy.forms import SearchForm
