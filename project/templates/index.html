@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-
 <!-- Nav Bar -->
 <div class="container-fluid">
   <div class="nav-section"> 
@@ -13,46 +12,27 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
           <span class="navbar-toggler-icon"></span>
       </button>
-
-      <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#footer"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#pricing"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#cta"></a>
-          </li>
-        </ul>
-
-      </div>-->
     </nav>
   </div>
 <!-- Input Section -->
   <div class="black-section">
-    <form method="POST">
-        <div class="urlInput row">
-            {{form.hidden_tag()}}
-            {{form.courseLink.label(class="form-control-label")}}{{form.courseLink(class="form-control",placeholder="e.g.,https://www.udemy.com/course/xxxx/")}}
-            {% if form.courseLink.errors %}
-                {% for error in form.courseLink.errors %}
-                <span style="color:#dc3545;font-size:0.8rem;">{{error}}</span>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="text-center">
-            {{form.submit(class="btn btn-outline-light")}}
-            <p>If the course link wasn't submitted before, it will take 10-20 seconds to load the result</p>
-        </div>
-        
+    <form>
+      <div class="urlInput row">
+        <label for="linkInput" class="form-label">Password</label>
+        <input type="text" class="form-control" id="linkInput" placeholder="e.g.,https://www.udemy.com/course/xxxx/">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+	      <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+        <p>If the course link wasn't submitted before, it will take 10-20 seconds to load the result</p>
+      </div>
     </form>
   </div>
 </div>
 
 <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -80,10 +60,10 @@ function clearContent(){
 <!-- Result -->
 <div class="container-fluid white-section">
 
-  <div class="textTitle"><h2>{{name}}</h2></div>
+  <div class="textTitle"><h2>-Course Name-</h2></div>
   <div class="align-self-center" id="resultArea">
     <label for="markdownArea"></label>
-    <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="">{{content}}</textarea>
+    <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="">The markdown results will be shown here</textarea>
   </div>
   <div class="optionButtons">
     <button type="button" class="btn btn-warning" onclick="copyText1()">
@@ -105,7 +85,7 @@ function clearContent(){
   </div>
  
   <div class="collapse showresult" id="collapseExample">
-    {{content|markdown}}
+    
   </div>
 
 </div>
@@ -138,34 +118,13 @@ function clearContent(){
           role="button"
           ><i class="fab fa-github"></i
         ></a>
-  
-        <!-- Instagram -->
-        <!-- <a class="btn btn-link btn-floating btn-lg text-white m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a> -->
-  
-        <!-- Linkedin -->
-        <!-- <a class="btn btn-link btn-floating btn-lg text-white m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-linkedin"></i
-        ></a> -->
-  
-        <!-- Facebook -->
-        <!-- <a class="btn btn-link btn-floating btn-lg text-white m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a> -->
+
         <p style="color:#ffffff;">© 2021 - Syllabus Scraper</p>
       </section>
     </div>
   
     </footer>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}
