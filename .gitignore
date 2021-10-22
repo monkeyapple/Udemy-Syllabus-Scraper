@@ -5,6 +5,8 @@
 /react-frontend
 config.py
 instance/
+workflow/
+recycle/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

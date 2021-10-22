@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flaskext.markdown import Markdown
-from flask_session import Session
 import os
 
 
@@ -20,8 +18,6 @@ app.config.from_mapping(
 
 db = SQLAlchemy(app)
 Migrate(app,db)
-Markdown(app)
-
 
 from project.udemy.views import index_blueprint
 app.register_blueprint(index_blueprint,url_prefix='/')
