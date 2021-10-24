@@ -1,7 +1,7 @@
 body{
     font-family:'Montserrat';
     font-weight: 400;
-    background-color: #333333;
+    text-align:center;
   }
   
   
@@ -33,32 +33,65 @@ margin-top:8px;
   }
 
   /* sections */
-.nav-section{
-  padding:0% 5%;
-}
 .black-section{
+  background-color: #333333;
+}
+.search-section{
     background-color: #333333;
-    padding:3% 20%;
-    color:#1cc5dc;
+    color:#fff;
   }
   
-.white-section{
+.result-section{
 background-color: #eeeeee;
-padding:3% 20%;
+color:#0f0f0f
+
 }
 
 .blue-section{
 background-color: #333333;
 }
+/* Title */
+
+#title .container-fluid{
+  padding:1% 15%;
+}
+
+/*search*/
+#search{
+  background-color: #333333;
+  color: #fff;
+  text-align: left;
+}
+#search .container-fluid{
+  padding:1% 15% 5% 15%;
+}
+#search .rowLogo{
+  margin:30px;
+}
+.comingSoon{
+  text-align: center;
+  color: rgba(240, 75, 103, 0.842);
+}
+.section-heading {
+  font-size: 3rem;
+  line-height: 1.5;
+}
 
 
 /* Input Area */
 .urlInput{
-  padding:3% 0;
+  padding:3% 7%;
 }
 
+#validateError{
+  margin:10px;
+  color:lightcoral;
+}
 
-/* Result Area */
+/* Result  */
+#result .container-fluid{
+  padding:3% 20%;
+}
 .textTitle{
   text-align:center;
 }
@@ -66,10 +99,7 @@ background-color: #333333;
   padding:1% 0 2% 0;
   
 }
-.radioStyle{
-  margin:2% auto;
-  padding:auto 1%;
-}
+
 .textarea.form-control::placeholder {
   font-weight: 300;
 }
@@ -79,10 +109,9 @@ background-color: #333333;
   width: 100%;
 }
 .showresult{
+  text-align:left;
   padding:3% 0;
 }
-
-/* CopiedAlert */
 
 
 .hrcollapse{
@@ -97,7 +126,10 @@ hr {
   background: black;
 }
 
-/* footer */
+/* Footer Section */
+#footer .container-fluid{
+  padding:3% 0%
+}
 
 .social-icon{
 margin:20px 10px;
@@ -105,6 +137,3 @@ margin:20px 10px;
 .icon-section{
 padding-bottom:20px
 }
-/* #accordionFlushExample{
-margin:5px 0px;
-} */

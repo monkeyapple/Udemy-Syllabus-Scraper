@@ -2,7 +2,7 @@ from flask import Blueprint,render_template,jsonify,request
 from project import db
 from project.models import Course
 from project.udemy.factory import Factory
-
+import datetime
 
 index_blueprint=Blueprint('index_page',__name__)
 
@@ -23,7 +23,8 @@ def update():
     queryRow=Course.query.filter_by(course_link=link).first()
     if queryRow==None:
         name,syllabus=factory.markdowngenerate(originalLink)
-        new_course=Course(name,link,syllabus,platform)
+        current_time=datetime.datetime.now(datetime.timezone.utc)
+        new_course=Course(name,link,syllabus,platform,current_time)
         db.session.add(new_course)
         db.session.commit()
     else:

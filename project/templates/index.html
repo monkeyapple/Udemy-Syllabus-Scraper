@@ -1,96 +1,110 @@
 {% extends "base.html" %}
 {% block content %}
 <!-- Nav Bar -->
-<div class="container-fluid">
-  <div class="nav-section"> 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-
-      <a class="navbar-brand" href="">
-        <img src="/static/images/logo-icon-w.png" alt="" width="30" height="20" class="d-inline-block align-text-bottom">
-        Syllabus Scraper
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-    </nav>
-  </div>
-<!-- Input Section -->
-  <div class="black-section">
-    <form>
-      <div class="urlInput row">
-        <label for="linkInput" class="form-label">Paste the course link:</label>
-        <input type="text" class="form-control" id="linkInput" placeholder="e.g. https://www.udemy.com/course/xxxx/">
-      </div>
-      <div class="text-center">
-        
-        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button> 
-        <div id="validateError"></div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Result -->
-<div class="container-fluid white-section">
-
-  <div class="textTitle"><h2>-Course Name-</h2></div>
-  <div class="align-self-center" id="resultArea">
-    <label for="markdownArea"></label>
-    <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="">The markdown results will be shown here</textarea>
-  </div>
-  <div class="optionButtons">
-    <button type="button" class="btn btn-warning" id="copyBtn" onclick="copyToClipboard()">
-    Copy
-    </button>
-
-  </div>
-
- <!-- Collapse -->
-  <div class="hrcollapse">
-    <hr>
-    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Show Markdown Preview
-    </button>
-    <hr>
-  </div>
- 
-  <div class="collapse showresult" id="collapseExample">
-  </div>
-</div>
-
-<!-- Footer -->
-<div class=container-fluid red-section id="footerArea">
-    <footer class="text-center text-white" style="background-color: #333333;">
-    <!-- Grid container -->
-    <div class="container pt-4">
-      <!-- Section: Social media -->
-      <section class="mb-4 icon-section">
-        <!-- Twitter -->
-        <a class="btn btn-link btn-floating btn-lg text-white m-1"
-          href="https://twitter.com/EffyLH20"
-          role="button"
-          ><i class="fab fa-twitter"></i
-        ></a>
-  
-        <!-- Google -->
-        <a class="btn btn-link btn-floating btn-lg text-white m-1"
-          href="mailto:monkeyappleh@gmail.com"
-          role="button"
-          ><i class="fab fa-google"></i
-        ></a>
-        <!-- Github -->
-        <a class="btn btn-link btn-floating btn-lg text-white m-1"
-          href="https://github.com/monkeyapple"
-          role="button"
-          ><i class="fab fa-github"></i
-        ></a>
-
-        <p style="color:#ffffff;">© 2021 - Syllabus Scraper</p>
-      </section>
+  <section class="black-section" id="title"> 
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="">
+          <img src="/static/images/logo-icon-w.png" alt="" width="30" height="20" class="d-inline-block align-text-bottom">
+          Syllabus Scraper
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
     </div>
-  
-    </footer>
-  </div>
+  </section>
+
+
+  <!-- Selectable Card -->
+  <section class="search-section" id="search">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <h1 class="section-heading">Get your Markdown course syllabus of:</h1>
+          <!-- Logos -->
+          <div class="row rowLogo">
+            <div class="col-lg-4">
+              <img src="/static/images/udemy-w.png" class="rounded img-fluid" alt="">
+            </div>
+            <div class="col-lg-1 align-self-top">
+            <h1>or</h1>
+            </div>
+            <div class="col-lg-4">
+              <img src="/static/images/coursera-w.png" class="rounded img-fluid" alt="">
+              <p class="comingSoon">(Coming soon)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 align-self-center">
+          <!-- Link Input Area -->
+          <form>
+            <div class="urlInput row">
+              <input type="text" class="form-control" id="linkInput" placeholder="Paste the Udemy course link:">
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button> 
+            <div id="validateError"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section class="result-section" id="result">
+    <div class="container-fluid">
+      <div class="textTitle"><h2>-Course Name-</h2></div>
+      <div class="align-self-center" id="resultArea">
+        <label for="markdownArea"></label>
+        <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="">The markdown results will be shown here</textarea>
+      </div>
+      <div class="optionButtons">
+        <button type="button" class="btn btn-warning float-left" id="copyBtn" onclick="copyToClipboard()">
+        Copy
+        </button>
+      </div>
+
+    <!-- Collapse -->
+      <div class="hrcollapse">
+        <hr>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Show Markdown Preview
+        </button>
+        <hr>
+      </div>
+      <div class="collapse showresult" id="collapseExample"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="black-section" id="footer">
+    <div class="container-fluid">
+      <!-- Twitter -->
+      <a class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="https://twitter.com/EffyLH20"
+        role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="mailto:monkeyappleh@gmail.com"
+        role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+      <!-- Github -->
+      <a class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="https://github.com/monkeyapple"
+        role="button"
+        ><i class="fab fa-github"></i
+      ></a>    
+      <p style="color:#ffffff;">© 2021 - Syllabus Scraper</p>
+    </div>
+  </footer>
+
   <!-- JavaScript-->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
