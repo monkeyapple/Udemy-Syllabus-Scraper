@@ -4,11 +4,17 @@ import time
 import json
 import copy
 class Factory():
-    def scrape(self,inputURL):
+    def scrape(self,inputURL,platform):
         html=urlopen(inputURL)
         bs=BeautifulSoup(html.read(),'html.parser')
-        div_raw=bs.find("div",{"class":"ud-component--course-landing-page-udlite--curriculum"})
-        courseTitle=bs.find("h1",{"data-purpose":"lead-title"}).get_text()
+        #udemy
+        if platform==1:
+            div_raw=bs.find("div",{"class":"ud-component--course-landing-page-udlite--curriculum"})
+            courseTitle=bs.find("h1",{"data-purpose":"lead-title"}).get_text()
+
+        #courera
+        # elif platform==2:
+
         courseTitle=courseTitle.strip()
         headerOne=[]
         headerTwo=[]
@@ -25,15 +31,15 @@ class Factory():
     def categorize(self,inputLink):
         if 'udemy' in inputLink:
             platform=1
-            cleanedLink=inputLink[29:-1]
+            cleanedLink=inputLink[21:]
         elif 'coursera' in inputLink:
             platform=2
             cleanedLink=inputLink[31:-1]
         return (platform,cleanedLink)
 
-    def markdowngenerate(self,inputLink):
+    def markdowngenerate(self,inputLink,platform):
         displayArray=["# Course Syllabus"+"\n"]
-        scrapedResult=self.scrape(inputLink)
+        scrapedResult=self.scrape(inputLink,platform)
         scrapedsyllabusData=scrapedResult[0]
         time.sleep(5)
         for i in scrapedsyllabusData:

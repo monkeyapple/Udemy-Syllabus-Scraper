@@ -22,7 +22,7 @@ def update():
 
     queryRow=Course.query.filter_by(course_link=link).first()
     if queryRow==None:
-        name,syllabus=factory.markdowngenerate(originalLink)
+        name,syllabus=factory.markdowngenerate(originalLink,platform)
         current_time=datetime.datetime.now(datetime.timezone.utc)
         new_course=Course(name,link,syllabus,platform,current_time)
         db.session.add(new_course)

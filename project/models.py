@@ -2,9 +2,9 @@ from project import db
 import datetime
 class Course(db.Model):
     __tablename__='course'
-    course_id=db.Column(db.Integer,primary_key=True)
+    # course_self_id=db.Column(db.Integer,primary_key=True)
     course_name=db.Column(db.String(80),nullable=False)
-    course_link=db.Column(db.String(250),unique=True,nullable=False)
+    course_link=db.Column(db.String(250),primary_key=True,unique=True,nullable=False)
     course_syllabus=db.Column(db.Text,nullable=False)
     platform_id=db.Column(db.Integer,nullable=False)
     last_update=db.Column(db.DateTime,default=datetime.timezone.utc,nullable=False)
