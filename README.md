@@ -8,6 +8,6 @@ V1.0
 
 ## How to use
 WebApp Link : www.syllabuscraper.com
-
-## Preview
+### 1. Get the course link from Udemy 
+### 2. Paste the course link in the search box
 ![Screenshot](/images/index.png)
