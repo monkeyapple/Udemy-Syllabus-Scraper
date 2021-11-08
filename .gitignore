@@ -1,12 +1,12 @@
 # production
 /scraper
-*.ini
 /rawAssets
 /react-frontend
 config.py
 instance/
 workflow/
 recycle/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
