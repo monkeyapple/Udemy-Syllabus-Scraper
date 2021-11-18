@@ -1,7 +1,17 @@
+<<<<<<< Updated upstream:project/app.yaml
 runtime: python
 env: flex
 entrypoint: gunicorn -b :$PORT app:app
 
 runtime_config:
   python_version: 3
+=======
+runtime: python37
+>>>>>>> Stashed changes:app.yaml
 
+env_variables:
+  CLOUD_SQL_USERNAME: YOUR-USERNAME
+  CLOUD_SQL_PASSWORD: YOUR-PASSWORD
+  CLOUD_SQL_DATABASE_NAME: YOUR-DATABASE
+  CLOUD_SQL_DATABASE_TABLE_NAME:
+  CLOUD_SQL_CONNECTION_NAME: YOUR-CONNECTION-NAME
