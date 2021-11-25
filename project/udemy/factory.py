@@ -84,7 +84,8 @@ class Factory():
                 allRawResults.append(json.loads(rawResult)['results'])  
         except:
             #if Api reported error:
-            name,syllabus=self.markdowngenerate(inputLink,platform)
+            # name,syllabus=self.markdowngenerate(inputLink,platform)
+            pass
         else:
             #if Api successfully executed:
             for m in allRawResults[0]:

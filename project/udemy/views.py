@@ -17,25 +17,23 @@ def update():
     factory=Factory()
     #get link from ajax POST
     originalLink=request.form['link']
-    #get the course ID
-    courseID=factory.getCourseID(originalLink)
     #get the platform
     platform,cleanedLink=factory.categorize(originalLink)
-    
+    #get the course ID
+    courseID=factory.getCourseID(originalLink,platform)
+
     queryRow=Course.query.filter_by(course_id=courseID).first()
     if queryRow==None:
         current_time=datetime.datetime.now(datetime.timezone.utc)
-        syllabus=factory.getCurriculumFromApi(courseID,originalLink,platform)
-        name=factory.getCourseDetailsFromApi(courseID)
+        name,syllabus=factory.getCurriculumFromApi(courseID,originalLink,platform)
+        new_course=Course(syllabus,platform,current_time,courseID)
         new_udemy_courselist=UdemyCourseList(courseID,name,cleanedLink)
-        new_course=Course(courseID,syllabus,platform,current_time)
-        db.session.add(new_udemy_courselist)
-        db.session.add(new_course)
+        db.session.add_all([new_udemy_courselist,new_course])
         db.session.commit()
     else:
-        queryName=UdemyCourseList.query.filter_by(course_id=courseID).first()
-        name=queryName.udemy_course_name
-        syllabus=queryRow.course_syllabus
+        queryName=UdemyCourseList.query.filter_by(id=courseID).first()
+        name=queryName.name
+        syllabus=queryRow.course.course_syllabus
 
     return jsonify({'name':name,'syllabus':syllabus})
 
