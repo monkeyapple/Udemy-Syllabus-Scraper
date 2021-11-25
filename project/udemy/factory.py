@@ -5,6 +5,7 @@ import json
 import copy
 
 from flask.app import Flask
+
 class Factory():
     def scrape(self,inputURL,platform):
         html=urlopen(inputURL)
