@@ -1,10 +1,18 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+from flask.app import Flask
+import os,sys,inspect
 import time
 import json
 import copy
 
-from flask.app import Flask
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(os.path.dirname(currentdir))
+sys.path.insert(0,parentdir)
+
+from UdemyAPI.udemy import *
+Client=PyUdemy()
 
 class Factory():
     def scrape(self,inputURL,platform):
@@ -78,16 +86,14 @@ class Factory():
     def getCurriculumFromApi(self,courseID,inputLink,platform):
         displayArray=["# Course Syllabus"+"\n"]
         allRawResults=[]
+        syllabus=None
         try:
+            #set the last page to 5, error must be thrown out
             name=self.getCourseDetailsFromApi(courseID)
-            for i in range(1,10):
+            for i in range(1,5):
                 rawResult=Client.get_publiccurriculumlist(courseID,page=i,page_size=100)
                 allRawResults.append(json.loads(rawResult)['results'])  
         except:
-            #if Api reported error:
-            # name,syllabus=self.markdowngenerate(inputLink,platform)
-            pass
-        else:
             #if Api successfully executed:
             for m in allRawResults[0]:
                 if m['_class']=='chapter':
@@ -95,5 +101,8 @@ class Factory():
                 elif m['_class']=='lecture':
                     displayArray.append("*"+" "+m['title']+"\n")
             syllabus=''.join(displayArray)
+        if syllabus==None:
+            #if Api get nothing:
+            name,syllabus=self.markdowngenerate(inputLink,platform)
         return (name,syllabus)
 
