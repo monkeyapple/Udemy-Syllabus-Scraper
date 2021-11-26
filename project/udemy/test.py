@@ -6,10 +6,10 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(os.path.dirname(currentdir))
 sys.path.insert(0,parentdir)
 
-from UdemyAPI.udemy import *
-try:
-    Client=PyUdemy()
-except:
-    pass
-else:
-    print('work well')
+# from UdemyAPI import udemy
+# try:
+#     Client=PyUdemy()
+# except:
+#     pass
+# else:
+#     print('work well')

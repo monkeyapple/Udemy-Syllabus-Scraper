@@ -101,8 +101,8 @@ class Factory():
                 elif m['_class']=='lecture':
                     displayArray.append("*"+" "+m['title']+"\n")
             syllabus=''.join(displayArray)
-        if syllabus==None:
-            #if Api get nothing:
-            name,syllabus=self.markdowngenerate(inputLink,platform)
+        # if syllabus==None:
+            # #if Api get nothing:
+            # name,syllabus=self.markdowngenerate(inputLink,platform)
         return (name,syllabus)
 
