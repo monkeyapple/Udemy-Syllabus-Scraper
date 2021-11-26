@@ -21,8 +21,7 @@ def update():
     platform,cleanedLink=factory.categorize(originalLink)
     #get the course ID
     courseID=factory.getCourseID(originalLink,platform)
-
-    queryRow=Course.query.filter_by(course_id=courseID).first()
+    queryRow=UdemyCourseList.query.filter_by(id=courseID).first()
     if queryRow==None:
         current_time=datetime.datetime.now(datetime.timezone.utc)
         name,syllabus=factory.getCurriculumFromApi(courseID,originalLink,platform)
@@ -30,9 +29,8 @@ def update():
         new_udemy_courselist=UdemyCourseList(courseID,name,cleanedLink)
         db.session.add_all([new_udemy_courselist,new_course])
         db.session.commit()
-    else:
-        queryName=UdemyCourseList.query.filter_by(id=courseID).first()
-        name=queryName.name
+    else: 
+        name=queryRow.name
         syllabus=queryRow.course.course_syllabus
 
     return jsonify({'name':name,'syllabus':syllabus})
