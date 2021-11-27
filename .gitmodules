@@ -1,0 +1,3 @@
+[submodule "UdemyAPI"]
+	path = UdemyAPI
+	url = https://github.com/monkeyapple/UdemyAPI.git
