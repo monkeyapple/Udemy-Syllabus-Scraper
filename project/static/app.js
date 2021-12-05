@@ -25,9 +25,6 @@ function clearContent(){
 	$('#collapseExample').text("");
 }
 
-
-
-
 $(document).ready(function() {
 	//Jquery ajax
 	$('form').on('submit', function(e) {
@@ -54,8 +51,8 @@ $(document).ready(function() {
 			
 
 		}else{
-			$('#validateError').text('Please provide a valid course link').show();
-				
+			var obj=$('#validateError').text("Valid link sample: \n https://www.udemy.com/course/100-days-of-code/ \n (Do not forget to add '/' at the end)").show();
+			obj.html(obj.html().replace(/\n/g,'<br/>'));	
 		}
 		e.preventDefault();
 	});

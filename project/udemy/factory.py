@@ -63,7 +63,6 @@ class Factory():
             cleanedLink=inputLink[31:-1]
         return (platform,cleanedLink)
 
-
     def getCourseID(self,inputURL,platform):
         html=urlopen(inputURL)
         bs=BeautifulSoup(html.read(),'html.parser')
