@@ -1,5 +1,5 @@
 # Syllabus-Scraper
-Syllabus-Scraper  is a web application for obtaining Markdown syllabus(course content) from online course platforms like Udemy or Coursera (come soon)
+Syllabus-Scraper  is a web application for obtaining Markdown syllabus(course content) from online course platforms like Udemy or Coursera (future plan)
 
 ## Current Version
 V1.0
