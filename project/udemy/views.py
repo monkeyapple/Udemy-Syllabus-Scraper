@@ -32,6 +32,7 @@ def update():
     else: 
         name=queryRow.name
         syllabus=queryRow.course.course_syllabus
+        print(" from database")
 
     return jsonify({'name':name,'syllabus':syllabus})
 

@@ -14,6 +14,7 @@ from UdemyAPI.udemy import *
 Client=PyUdemy()
 
 class Factory():
+    #This scraper is obsolete!
     def scrape(self,inputURL,platform):
         html=urlopen(inputURL)
         bs=BeautifulSoup(html.read(),'html.parser')
@@ -26,7 +27,8 @@ class Factory():
         courseTitle=courseTitle.strip()
         headerOne=[]
         headerTwo=[]
-        selection=(json.loads(div_raw['data-component-props']))['sections']
+        loadJson=json.loads(div_raw['data-component-props'])
+        selection=loadJson['sections']
         for idx,i in enumerate(selection):
             headerOne.append({i['title']:None})
             for m in i['items']:
@@ -66,14 +68,17 @@ class Factory():
     def getCourseID(self,inputURL,platform):
         html=urlopen(inputURL)
         bs=BeautifulSoup(html.read(),'html.parser')
-        #udemy
-        if platform==1:
-            div_raw=bs.find("div",{"class":"ud-component--course-landing-page-udlite--instructors"})
+        try:
+            #udemy
+            if platform==1:
+                div_raw=bs.find("div",{"class":"ud-component--course-landing-page-udlite--instructors"})
 
-        #courera
-        # elif platform==2:
+            #courera
+            # elif platform==2:
 
-        courseID=(json.loads(div_raw['data-component-props']))['course_id']
+            courseID=(json.loads(div_raw['data-component-props']))['course_id']
+        except:
+            print("fail to get courser_id")
         return courseID
 
     def getCourseDetailsFromApi(self,courseID):
@@ -86,9 +91,9 @@ class Factory():
         allRawResults=[]
         syllabus=None
         try:
-            #set the last page to 5, error must be thrown out
+            #set the last page to 10, error must be thrown out
             name=self.getCourseDetailsFromApi(courseID)
-            for i in range(1,5):
+            for i in range(1,10):
                 rawResult=Client.get_publiccurriculumlist(courseID,page=i,page_size=100)
                 allRawResults.append(json.loads(rawResult)['results'])  
         except:
@@ -99,8 +104,11 @@ class Factory():
                 elif m['_class']=='lecture':
                     displayArray.append("*"+" "+m['title']+"\n")
             syllabus=''.join(displayArray)
-        if syllabus==None:
-            #if Api get nothing:
-            name,syllabus=self.markdowngenerate(inputLink,platform)
+            print("successfully fetching from API")
+        #This scraper is obsolete
+        # if syllabus==None:
+        #     name,syllabus=self.markdowngenerate(inputLink,platform)
+        #     print("fail fetching from API, now try to scrape")
+
         return (name,syllabus)
 
