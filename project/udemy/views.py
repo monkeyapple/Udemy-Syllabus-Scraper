@@ -24,7 +24,7 @@ def update():
     queryRow=UdemyCourseList.query.filter_by(id=courseID).first()
     if queryRow==None:
         current_time=datetime.datetime.now(datetime.timezone.utc)
-        name,syllabus=factory.getCurriculumFromApi(courseID,originalLink,platform)
+        name,syllabus=factory.getCurriculumFromApi(courseID)
         new_course=Course(syllabus,platform,current_time,courseID)
         new_udemy_courselist=UdemyCourseList(courseID,name,cleanedLink)
         db.session.add_all([new_udemy_courselist,new_course])
