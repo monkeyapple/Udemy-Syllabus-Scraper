@@ -38,20 +38,20 @@ class Factory():
     #         headerTwo.clear()
     #     return (headerOne,courseTitle)
 
-    def markdowngenerate(self,inputLink,platform):
-        displayArray=["# Course Syllabus"+"\n"]
-        scrapedResult=self.scrape(inputLink,platform)
-        scrapedsyllabusData=scrapedResult[0]
-        time.sleep(5)
-        for i in scrapedsyllabusData:
-            for k,v in i.items():
-                displayArray.append("### "+k+"\n")
-                for m in v:
-                    displayArray.append("*"+" "+m+"\n")
-        contentSyllabus=''.join(displayArray)
-        name=scrapedResult[1]
-        syllabus=contentSyllabus
-        return (name,syllabus)
+    # def markdowngenerate(self,inputLink,platform):
+    #     displayArray=["# Course Syllabus"+"\n"]
+    #     scrapedResult=self.scrape(inputLink,platform)
+    #     scrapedsyllabusData=scrapedResult[0]
+    #     time.sleep(5)
+    #     for i in scrapedsyllabusData:
+    #         for k,v in i.items():
+    #             displayArray.append("### "+k+"\n")
+    #             for m in v:
+    #                 displayArray.append("*"+" "+m+"\n")
+    #     contentSyllabus=''.join(displayArray)
+    #     name=scrapedResult[1]
+    #     syllabus=contentSyllabus
+    #     return (name,syllabus)
 
     def categorize(self,inputLink):
         #Example: 

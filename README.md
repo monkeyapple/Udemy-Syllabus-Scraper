@@ -1,5 +1,6 @@
 # Syllabus-Scraper
 Syllabus-Scraper  is a web application for obtaining Markdown syllabus(course content) from online course platforms (Now only support for Udemy)
+![Screenshot](/images/projectgif)
 
 ## Current Version
 V1.0
@@ -11,3 +12,6 @@ WebApp Link : www.syllabuscraper.com
 ### 1. Copy the course link from Udemy 
 ### 2. Paste the course link in the search box
 ![Screenshot](/images/index.png)
+
+## Technical details about this project
+I wrote a article for this project:[link](https://medium.com/@monkeyappleh/building-an-online-course-syllabus-scraper-with-flask-udemyapi-postgresql-on-heroku-262b727e228b)
