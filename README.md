@@ -1,11 +1,11 @@
 # Syllabus-Scraper
-Syllabus-Scraper is a web application for obtaining Markdown syllabus from online course platforms (Now only support for Udemy)
+Syllabus-Scraper is a web application for generating Markdown syllabus of online-course platforms (now only support for Udemy)
 ![Screenshot](/images/projectgif.gif)
 
 ## Current Version
 V1.0
 ### V1.0 Functionalities
-* Obtaining Markdown syllabus of Udemy courses
+* Generating Markdown syllabus of Udemy courses
 
 ## How to use
 WebApp Link : www.syllabuscraper.com
