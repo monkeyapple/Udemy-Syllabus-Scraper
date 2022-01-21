@@ -14,4 +14,4 @@ WebApp Link : www.syllabuscraper.com
 ![Screenshot](/images/index.png)
 
 ## Technical details about this project
-I wrote a article for this project:[link](https://medium.com/@monkeyappleh/building-an-online-course-syllabus-scraper-with-flask-udemyapi-postgresql-on-heroku-262b727e228b)
+I wrote a article for this project:[link](https://medium.com/@effylh/building-an-online-course-syllabus-scraper-with-flask-udemyapi-postgresql-on-heroku-262b727e228b)
