@@ -12,11 +12,11 @@ index_blueprint=Blueprint('index_page',__name__)
 def index():
     recentSearches=[]
     recentQuery=Course.query.order_by(Course.last_update.desc()).limit(10).all()
-    if len(recentQuery)<10:
-        recentSearches=[('No record','None')]*10
-    else:
-        for row in recentQuery:
-            recentSearches.append((row.udemy_courselist.name,row.udemy_courselist.link))
+    for row in recentQuery:
+        recentSearches.append((row.udemy_courselist.name,row.udemy_courselist.link))
+    length=len(recentSearches)
+    if length<10:
+        recentSearches.extend([('No enough data','#')]*(10-length)) 
     return render_template('index.html',recentSearches=recentSearches)
 
 @index_blueprint.route('/update',methods=['POST'])
