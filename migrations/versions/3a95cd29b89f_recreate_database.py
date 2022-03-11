@@ -1,8 +1,8 @@
-"""first
+"""recreate database
 
-Revision ID: cec648df183a
+Revision ID: 3a95cd29b89f
 Revises: 
-Create Date: 2021-11-25 21:17:40.323822
+Create Date: 2022-03-10 23:05:31.366974
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cec648df183a'
+revision = '3a95cd29b89f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,6 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('link', sa.String(length=250), nullable=False),
+    sa.Column('searchCount', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id'),
     sa.UniqueConstraint('link')

@@ -4,7 +4,6 @@ body{
     text-align:center;
   }
   
-  
 h1{
 font-family:'Montserrat',sans-serif;
 font-size:2.3rem;
@@ -25,6 +24,8 @@ font-size:1.2rem;
 line-height:1;
 font-weight:200;
 }
+
+
 
 p{
 color:rgb(209, 209, 209);
@@ -127,7 +128,52 @@ hr {
   height: 2px;
   background: black;
 }
+/*Searches Data*/
+#searchData{
+  background-color: #eeeeee;
+  color:#0f0f0f
+}
+#searchData .container-fluid{
+  padding:3% 15%;
+}
+.nav-tabs .nav-item .nav-link {
+  background-color:transparent;
+  color:#0f0f0f;
+}
 
+.nav-tabs .nav-item .nav-link.active {
+  color: #0f0f0f;
+}
+
+.tab-content {
+  padding: 15px;
+}
+
+.tab-content .tab-pane {
+  color: #0f0f0f;
+  min-height: 200px;
+  height: auto;
+}
+a:link {
+  color: #0d6efd;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: #0d6efd;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: #0d6efd;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:active {
+  color: #0d6efd;
+  background-color: transparent;
+  text-decoration: underline;
+}
 /* Footer Section */
 #footer .container-fluid{
   padding:3% 0%

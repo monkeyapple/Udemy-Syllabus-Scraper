@@ -10,30 +10,38 @@ index_blueprint=Blueprint('index_page',__name__)
 
 @index_blueprint.route('/')
 def index():
-    return render_template('index.html')
+    recentSearches=[]
+    recentQuery=Course.query.order_by(Course.last_update.desc()).limit(10).all()
+    if len(recentQuery)<10:
+        recentSearches=[('No record','None')]*10
+    else:
+        for row in recentQuery:
+            recentSearches.append((row.udemy_courselist.name,row.udemy_courselist.link))
+    return render_template('index.html',recentSearches=recentSearches)
 
 @index_blueprint.route('/update',methods=['POST'])
 def update(): 
     factory=Factory()
     #get link from ajax POST
     originalLink=request.form['link']
-    #get the platform
-    platform,cleanedLink=factory.categorize(originalLink)
-    #get the course ID
-    courseID=factory.getCourseID(originalLink,platform)
-    queryRow=UdemyCourseList.query.filter_by(id=courseID).first()
-    if queryRow==None:
+    #get the course ID,platform, and cleanedLink
+    results=factory.getCourseID(originalLink)
+    courseID,platform,cleanedLink=results[0],results[1],results[2]
+    queryUdemyCourseListRow=UdemyCourseList.query.filter_by(id=courseID).first()
+
+    if queryUdemyCourseListRow==None:
         current_time=datetime.datetime.now(datetime.timezone.utc)
         name,syllabus=factory.getCurriculumFromApi(courseID)
         new_course=Course(syllabus,platform,current_time,courseID)
-        new_udemy_courselist=UdemyCourseList(courseID,name,cleanedLink)
+        new_udemy_courselist=UdemyCourseList(courseID,name,cleanedLink,1)
         db.session.add_all([new_udemy_courselist,new_course])
         db.session.commit()
     else: 
-        name=queryRow.name
-        syllabus=queryRow.course.course_syllabus
-        print(" from database")
-
+        name=queryUdemyCourseListRow.name
+        syllabus=queryUdemyCourseListRow.course.course_syllabus
+        existedRow=UdemyCourseList.query.get(courseID)
+        existedRow.searchCount=existedRow.searchCount+1
+        db.session.commit()
     return jsonify({'name':name,'syllabus':syllabus})
 
 

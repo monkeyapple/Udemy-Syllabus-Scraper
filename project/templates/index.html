@@ -79,6 +79,46 @@
     </div>
   </section>
 
+
+
+  <!-- SearchData -->
+  <section class="searchData-section" id="searchData">
+    <div class="container-fluid">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">10 Recent Searches</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Most Searched(All Time)</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <table class="table table-hover" cellspacing="0">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" style="text-align:left">newest to oldest</th>
+                <!-- <th scope="col">Like?</th> -->
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in range(0,10) %}
+            <tr>
+                <th scope="row">{{i+1}}</th>
+                <td align="left"><a href="{{recentSearches[i][1]}}">{{recentSearches[i][0]}}</a></td>
+                <!-- <td>@mdo</td> -->
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        Not enough data
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- Footer -->
   <footer class="black-section" id="footer">
     <div class="container-fluid">
