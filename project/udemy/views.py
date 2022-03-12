@@ -40,7 +40,7 @@ def update():
         name=queryUdemyCourseListRow.name
         syllabus=queryUdemyCourseListRow.course.course_syllabus
         existedRow=UdemyCourseList.query.get(courseID)
-        existedRow.searchCount=existedRow.searchCount+1
+        existedRow.searchcount=existedRow.searchcount+1
         db.session.commit()
     return jsonify({'name':name,'syllabus':syllabus})
 

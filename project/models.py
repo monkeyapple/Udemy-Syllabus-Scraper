@@ -7,12 +7,12 @@ class UdemyCourseList(db.Model):
     name=db.Column(db.String(80),nullable=False)
     link=db.Column(db.String(250),unique=True,nullable=False)
     course=db.relationship('Course',backref='udemy_courselist',uselist=False)
-    searchCount=db.Column(db.Integer,nullable=False)
-    def __init__(self,id,name,link,searchCount):
+    searchcount=db.Column(db.Integer,nullable=False)
+    def __init__(self,id,name,link,searchcount):
         self.id=id
         self.name=name
         self.link=link
-        self.searchCount=searchCount
+        self.searchcount=searchcount
     def __repr__(self):
         if self.course:
             return f"Course id is {self.id} and updated at{self.course.last_update}"
