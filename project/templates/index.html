@@ -79,7 +79,27 @@
     </div>
   </section>
 
-
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
   <!-- SearchData -->
   <section class="searchData-section" id="searchData">
@@ -107,6 +127,9 @@
             <tr>
                 <th scope="row">{{i+1}}</th>
                 <td align="left"><a href="https://www.udemy.com{{recentSearches[i][1]}}">{{recentSearches[i][0]}}</a></td>
+                <td>
+                  <i class="fa-solid fa-file-lines"></i>
+                </td>
                 <!-- <td>@mdo</td> -->
             </tr>
             {% endfor %}

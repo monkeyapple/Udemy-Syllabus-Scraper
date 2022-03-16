@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Blueprint,render_template,jsonify,request
 from project import db
 from project.models import Course,UdemyCourseList
@@ -19,7 +20,7 @@ def index():
         recentSearches.extend([('No enough data','#')]*(10-length)) 
     return render_template('index.html',recentSearches=recentSearches)
 
-@index_blueprint.route('/update',methods=['POST'])
+@index_blueprint.route('/update')
 def update(): 
     factory=Factory()
     #get link from ajax POST
@@ -45,7 +46,13 @@ def update():
     return jsonify({'name':name,'syllabus':syllabus})
 
 
-@index_blueprint.route('/list')
-def list_courses():
-    courses=Course.query.all()
-    return render_template('list_courses.html',courses=courses)
+@index_blueprint.route('/getsyllabus',methods=["POST","GET"])
+def getsyllabus():
+    if request.method=='POST':
+        #get current selected search result's link
+        courseLink=request.form['link']
+        courseLink=courseLink[21:]
+    queryCourseRow=UdemyCourseList.query.filter_by(link=courseLink).first()
+    syllabus=queryCourseRow.course.course_syllabus
+    print(syllabus)
+    return jsonify({'syllabus':syllabus})

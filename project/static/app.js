@@ -25,6 +25,7 @@ function clearContent(){
 	$('#collapseExample').text("");
 }
 
+
 $(document).ready(function() {
 	$('form').on('submit', function(e) {
 		$("#copyBtn").text('Copy')
@@ -55,6 +56,24 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
 	});
+	$(".fa-solid").click(function(){
+		currLink=$(this).parent().prev().find('a:first').attr('href');
+		
+		req=$.ajax(
+			{
+				data:{
+					link:currLink,
+				},
+				type:'POST',
+				url:'/getsyllabus',
+			})
+		req.done(function(data){
+			$('#myModal').appendTo("body").modal('show');
+			$('.modal-body').text(data.syllabus);			
+		});
+
+	})
+
 
 });
 
