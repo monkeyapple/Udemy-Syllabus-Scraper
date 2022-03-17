@@ -73,7 +73,7 @@ $(document).ready(function() {
 		req.done(function(data){	
 			copySyllabus(data.syllabus);
 			$(".searchcopyBtn").text("Copy");
-			$("#"+curr_id).text("Copied");
+			$("#"+curr_id).text("Copied!");
 		});
 
 	})

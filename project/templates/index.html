@@ -62,7 +62,7 @@
         <textarea readonly class="form-control form-control-sm" id="markdownArea" rows="25" placeholder="">The markdown results will be shown here</textarea>
       </div>
       <div class="optionButtons">
-        <button type="button" class="btn btn-warning float-left" id="copyBtn" onclick="copyToClipboard('markdownArea')">
+        <button type="button" class="btn btn-warning float-left" id="copyBtn" onclick="copyToClipboard('markdownArea')" style="color:white">
         Copy
         </button>
       </div>
@@ -70,7 +70,7 @@
     <!-- Collapse -->
       <div class="hrcollapse">
         <hr>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
           Show Markdown Preview
         </button>
         <hr>
@@ -107,7 +107,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td align="left"><a href="https://www.udemy.com{{recentSearches[i][1]}}">{{recentSearches[i][0]}}</a></td>
                 <td>
-                  <button type="button" id="button_{{i}}" class="btn btn-warning float-left btn-sm searchcopyBtn">Copy</button>
+                  <button type="button" id="button_{{i}}" class="btn btn-warning float-left btn-sm searchcopyBtn" style="color:white">Copy</button>
                 </td>
             </tr>
             {% endfor %}
