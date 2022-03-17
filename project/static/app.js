@@ -9,13 +9,17 @@ function validateInput(inputValue){
 	}
 }
 
-// copy button
-function copyToClipboard() {
+// copy html text to clipboard
+function copyToClipboard(passEle) {
 	document.getElementById("copyBtn").innerText="Copied!";
-	var copyText = document.getElementById("markdownArea");
+	var copyText = document.getElementById(passEle);
 	copyText.select();
 	copyText.setSelectionRange(0, 99999); 
 	navigator.clipboard.writeText(copyText.value);
+}
+//copy string to clipboard
+function copySyllabus(text) {
+	navigator.clipboard.writeText(text);
 }
 
 
@@ -24,7 +28,6 @@ function clearContent(){
 	$('#markdownArea').text("");
 	$('#collapseExample').text("");
 }
-
 
 $(document).ready(function() {
 	$('form').on('submit', function(e) {
@@ -56,9 +59,9 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
 	});
-	$(".fa-solid").click(function(){
+	$(".searchcopyBtn").click(function(){
 		currLink=$(this).parent().prev().find('a:first').attr('href');
-		
+		curr_id=this.id
 		req=$.ajax(
 			{
 				data:{
@@ -67,9 +70,10 @@ $(document).ready(function() {
 				type:'POST',
 				url:'/getsyllabus',
 			})
-		req.done(function(data){
-			$('#myModal').appendTo("body").modal('show');
-			$('.modal-body').text(data.syllabus);			
+		req.done(function(data){	
+			copySyllabus(data.syllabus);
+			$(".searchcopyBtn").text("Copy");
+			$("#"+curr_id).text("Copied");
 		});
 
 	})

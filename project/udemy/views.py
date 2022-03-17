@@ -20,7 +20,7 @@ def index():
         recentSearches.extend([('No enough data','#')]*(10-length)) 
     return render_template('index.html',recentSearches=recentSearches)
 
-@index_blueprint.route('/update')
+@index_blueprint.route('/update',methods=["GET","POST"])
 def update(): 
     factory=Factory()
     #get link from ajax POST
@@ -46,7 +46,7 @@ def update():
     return jsonify({'name':name,'syllabus':syllabus})
 
 
-@index_blueprint.route('/getsyllabus',methods=["POST","GET"])
+@index_blueprint.route('/getsyllabus',methods=["GET","POST"])
 def getsyllabus():
     if request.method=='POST':
         #get current selected search result's link
