@@ -22,17 +22,20 @@ class UdemyCourseList(db.Model):
 class Course(db.Model):
     __tablename__='course'
     course_id=db.Column(db.Integer,primary_key=True,unique=True,nullable=False)
+    udemy_course_id=db.Column(db.Integer,db.ForeignKey('udemy_courselist.id'))
     course_syllabus=db.Column(db.Text,nullable=False)
     platform_id=db.Column(db.Integer,nullable=False)
     last_update=db.Column(db.DateTime,default=datetime.timezone.utc,nullable=False)
-    udemy_course_id=db.Column(db.Integer,db.ForeignKey('udemy_courselist.id'))
+    last_visit=db.Column(db.DateTime,default=datetime.timezone.utc,nullable=False)
 
 
-    def __init__(self,course_syllabus,platform_id,last_update,udemy_course_id):
+    def __init__(self,udemy_course_id,course_syllabus,platform_id,last_update,last_visit):
+        self.udemy_course_id=udemy_course_id
         self.course_syllabus=course_syllabus
         self.platform_id=platform_id
         self.last_update=last_update
-        self.udemy_course_id=udemy_course_id
+        self.last_visit=last_visit
+
 
 
     def __repr__(self):

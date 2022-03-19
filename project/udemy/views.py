@@ -12,12 +12,10 @@ index_blueprint=Blueprint('index_page',__name__)
 @index_blueprint.route('/')
 def index():
     recentSearches=[]
-    recentQuery=Course.query.order_by(Course.last_update.desc()).limit(10).all()
-    for row in recentQuery:
-        recentSearches.append((row.udemy_courselist.name,row.udemy_courselist.link))
-    length=len(recentSearches)
-    if length<10:
-        recentSearches.extend([('No enough data','#')]*(10-length)) 
+    if Course.query.count()>=10:
+        recentQuery=Course.query.order_by(Course.last_visit.desc()).limit(10).all()
+        for row in recentQuery:
+            recentSearches.append((row.udemy_courselist.name,row.udemy_courselist.link))
     return render_template('index.html',recentSearches=recentSearches)
 
 @index_blueprint.route('/update',methods=["GET","POST"])
@@ -33,7 +31,7 @@ def update():
     if queryUdemyCourseListRow==None:
         current_time=datetime.datetime.now(datetime.timezone.utc)
         name,syllabus=factory.getCurriculumFromApi(courseID)
-        new_course=Course(syllabus,platform,current_time,courseID)
+        new_course=Course(courseID,syllabus,platform,current_time,current_time)
         new_udemy_courselist=UdemyCourseList(courseID,name,cleanedLink,1)
         db.session.add_all([new_udemy_courselist,new_course])
         db.session.commit()
@@ -42,6 +40,7 @@ def update():
         syllabus=queryUdemyCourseListRow.course.course_syllabus
         existedRow=UdemyCourseList.query.get(courseID)
         existedRow.searchcount=existedRow.searchcount+1
+        existedRow.course.last_visit=datetime.datetime.now(datetime.timezone.utc)
         db.session.commit()
     return jsonify({'name':name,'syllabus':syllabus})
 
