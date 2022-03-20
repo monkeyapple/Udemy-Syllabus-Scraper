@@ -1,13 +1,15 @@
 // validate the URI
-function validateInput(inputValue){
-	var expression=/(https:\/\/www\.udemy\.com\/course\/[\d*\w*\-*]{1,256}\/)/gi;
-	var reg=new RegExp(expression);
-	if (inputValue.match(reg)){	
-		return true;
+function validateInput(linkStr){
+	var reg=/https:\/\/www\.udemy\.com\/course\/[^\/]+\//;
+	if (linkStr.match(reg)){	
+		matches=linkStr.match(reg)
+		return matches[0]
 	}else{
-		return false;
+		return null;
 	}
+
 }
+
 
 // copy html text to clipboard
 function copyToClipboard(passEle) {
@@ -29,12 +31,14 @@ function clearContent(){
 	$('#collapseExample').text("");
 }
 
+
 $(document).ready(function() {
 	$('form').on('submit', function(e) {
 		$("#copyBtn").text('Copy')
 		var converter = new showdown.Converter();
-		inputValue=$("#linkInput").val();
-		if (validateInput(inputValue)===true){
+		var inputValue=$("#linkInput").val();
+		var inputValue=validateInput(inputValue);
+		if (inputValue!==null){
 			$('#submitButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...')
 			$('#validateError').hide()
 			req=$.ajax({
