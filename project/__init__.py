@@ -1,12 +1,12 @@
 from flask import Flask
-# from flask_talisman import Talisman
+from flask_talisman import Talisman
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 
 
 app=Flask(__name__)
-# Talisman(app, content_security_policy=None)
+Talisman(app, content_security_policy=None)
 
 app.config.from_mapping(
     SECRET_KEY = os.environ.get('SECRET_KEY'),
