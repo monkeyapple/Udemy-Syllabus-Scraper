@@ -1,0 +1,4 @@
+include README.rst
+prune dist*
+prune build*
+prune * __pycache__*

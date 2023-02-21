@@ -1,24 +1,24 @@
-version: '3'
+version: "3.8"
 services:
   web:
-    restart: always  
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    build: ./services/web
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - ./services/web/:/usr/src/app/
     ports:
       - "5000:5000"
+    env_file:
+      - ./.env.dev
     depends_on:
       - db
-    environment:
-      - FLASK_APP=run.py
-      - FLASK_ENV=development
-      - SECRET_KEY=secret
-      - DATABASE_URL=postgresql://postgres:postgres_password@postgres:5432/postgres
 
   db:
-    image: "postgres:latest"
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_PASSWORD=postgres_password
-    
-    
-    
+      - POSTGRES_USER=hello_flask
+      - POSTGRES_PASSWORD=hello_flask
+      - POSTGRES_DB=hello_flask_dev
+volumes:
+  postgres_data:

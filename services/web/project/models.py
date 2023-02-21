@@ -1,5 +1,8 @@
 from project import db
 import datetime
+from sqlalchemy import MetaData
+
+metadata = MetaData()
 
 class UdemyCourseList(db.Model):
     __tablename__='udemy_courselist'
