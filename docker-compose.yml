@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    restart: always  
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - SECRET_KEY=secret
+      - DATABASE_URL=postgresql://postgres:postgres_password@postgres:5432/postgres
+
+  db:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+    
+    
+    
