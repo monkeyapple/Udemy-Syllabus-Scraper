@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
+if [ "$DATABASE" = $DATABASE_NAME ]
 then
     echo "Waiting for postgres..."
 
@@ -12,3 +12,4 @@ then
 fi
 
 exec "$@"
+

@@ -2,7 +2,6 @@
 /scraper
 /rawAssets
 /react-frontend
-config.py
 instance/
 workflow/
 recycle/
