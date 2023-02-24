@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
+if [ "$DB_NAME" = "postgres" ]
 then
     echo "Waiting for Cloud SQL instance..."
 
