@@ -1,14 +1,14 @@
 #!/bin/sh
 
-if [ "$DB_NAME" = "postgres" ]
+if [ "$DATABASE" = "postgres" ]
 then
-    echo "Waiting for Cloud SQL instance..."
+    echo "Waiting for postgres..."
 
-    while ! pg_isready -h "$DB_HOST" -p "$DB_PORT"; do
+    while ! nc -z $SQL_HOST $SQL_PORT; do
       sleep 0.1
     done
 
-    echo "Cloud SQL instance is up"
+    echo "PostgreSQL started"
 fi
 
 exec "$@"
