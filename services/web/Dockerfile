@@ -1,5 +1,6 @@
 FROM python:3.10.7-slim-buster
 
+
 # set work directory
 WORKDIR /usr/src/app
 
@@ -12,7 +13,7 @@ RUN apt-get update && apt-get install -y netcat
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements.txt $APP_HOME/requirements.txt
 RUN pip install -r requirements.txt
 
 # copy project

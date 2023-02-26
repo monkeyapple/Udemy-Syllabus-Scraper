@@ -5,11 +5,11 @@ services:
     build:
       context: ./services/web
       dockerfile: Dockerfile.prod
-    command: gunicorn --bind 0.0.0.0:5000 manage:app
+    command: gunicorn --bind :$PORT manage:app
     ports:
       - 5000:5000
-    # env_file:
-    #   - ./.env
+    # expose:
+    #   - 5000
     environment:
       - udemyClientID=test
       - udemyClientSecret=test
@@ -19,6 +19,7 @@ services:
       - SQL_HOST=db
       - SQL_PORT=5432
       - DATABASE=postgres
+      - PORT=5000
 
     depends_on:
       - db
@@ -27,8 +28,6 @@ services:
     volumes:
       - postgres_data_prod:/var/lib/postgresql/data/
 
-    # env_file:
-    #   - ./.env
     environment:
       - POSTGRES_USER=hello_flask
       - POSTGRES_PASSWORD=hello_flask
@@ -36,7 +35,7 @@ services:
   # nginx:
   #   build: ./services/nginx
   #   ports:
-  #     - 1337:8080
+  #     - "3050:80"
   #   depends_on:
   #     - web
 
