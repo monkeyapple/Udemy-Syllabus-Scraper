@@ -4,18 +4,15 @@ services:
   web:
     build:
       context: ./services/web
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     ports:
       - 5000:5000
     environment:
       - udemyClientID=test
       - udemyClientSecret=test
-      - FLASK_APP=project/__init__.py
+      # - FLASK_APP=project/__init__.py
       - FLASK_DEBUG=0
       - DATABASE_URL=postgresql://hello_flask:hello_flask@db:5432/hello_flask_prod
-      - SQL_HOST=db
-      - SQL_PORT=5432
-      - DATABASE=postgres
       - PORT=5000
 
     depends_on:

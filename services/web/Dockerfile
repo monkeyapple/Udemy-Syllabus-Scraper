@@ -1,23 +1,21 @@
 FROM python:3.10.7-slim-buster
 
-
 # set work directory
-WORKDIR /usr/src/app
+# https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-service
+ENV APP_HOME /app
+WORKDIR $APP_HOME
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
+# allow statements and log message to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED 1
 
-# install system dependencies
-RUN apt-get update && apt-get install -y netcat
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt $APP_HOME/requirements.txt
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
 # copy project
-COPY . /usr/src/app/
+COPY . .
 
-# run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+EXPOSE 5000
+
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 run:app

@@ -1,6 +1,6 @@
 from flask import Flask
-# from flask_talisman import Talisman
 from flask_sqlalchemy import SQLAlchemy
+import pg8000
 
 
 app=Flask(__name__)

@@ -6,3 +6,4 @@ gunicorn==20.1.0
 requests==2.26.0
 SQLAlchemy==1.4
 python-dotenv
+pg8000
