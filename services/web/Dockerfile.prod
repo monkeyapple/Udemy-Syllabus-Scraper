@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends netcat
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
 # copy project
 COPY . .
 
-ENTRYPOINT ["bash","entrypoint.prod.sh"]
+EXPOSE 5000
+
+CMD exec gunicorn --bind :$PORT run:app --workers 1 --threads 1 --timeout 60
