@@ -2,7 +2,6 @@
 /scraper
 /rawAssets
 /react-frontend
-config.py
 instance/
 workflow/
 recycle/
@@ -101,6 +100,9 @@ celerybeat-schedule
 
 # Environments
 .env
+.env.dev
+.env.prod
+.env.prod.db
 .venv
 env/
 venv/

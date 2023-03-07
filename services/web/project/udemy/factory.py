@@ -29,7 +29,9 @@ class Factory():
         # elif platform==2:
 
         courseID=json.loads(div_raw['data-clp-course-id'])
-        print('courseId is:'+str(courseID))
+
+        # test:courseID
+        # print('courseId is:'+str(courseID))
         return [courseID,platform,cleanedLink]
         
 
