@@ -13,7 +13,7 @@ Syllabus-Scraper is a web application for generating the Markdown syllabus of on
 * Generating Markdown syllabus of Udemy courses
 
 ## How to use
-WebApp Link : [syllabuscraper.com](syllabuscraper.com)
+WebApp Link : [syllabuscraper.com](https://syllabuscraper.com)
 ### 1. Copy the course link from Udemy 
 ### 2. Paste the course link in the search box
 ![Screenshot](/images/index.png)
