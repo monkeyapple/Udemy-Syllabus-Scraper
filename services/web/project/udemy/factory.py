@@ -23,7 +23,7 @@ class Factory():
 
         #udemy
         if platform==1:
-            div_raw=bs.find("body",{"id":"udemy"})
+            div_raw=bs.find("body")
 
         #courera
         # elif platform==2:
