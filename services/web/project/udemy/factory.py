@@ -1,6 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
-from flask.app import Flask
+import re
 import os,sys,inspect
 import json
 
@@ -13,26 +12,32 @@ Client=PyUdemy()
 
 class Factory():
     def getCourseID(self,inputURL):
-        if 'udemy' in inputURL:
-            platform=1
-            cleanedLink=inputURL[21:]
-        elif 'coursera' in inputURL:
-            platform=2
-            cleanedLink=inputURL[31:-1]
-        bs=BeautifulSoup(requests.get(inputURL).text,'html.parser')
+        if 'udemy' not in inputURL:
+            raise Exception("Only Udemy URLs are supported")
 
-        #udemy
-        if platform==1:
-            div_raw=bs.find("body")
+        platform = 1
+        # Extract slug from URL: https://www.udemy.com/course/SLUG/
+        parts = inputURL.split('/course/')
+        if len(parts) < 2:
+            raise Exception("Invalid Udemy URL format")
 
-        #courera
-        # elif platform==2:
+        slug = parts[1].strip('/').split('/')[0].split('?')[0]
+        cleanedLink = f"/course/{slug}/"
 
-        courseID=json.loads(div_raw['data-clp-course-id'])
+        # Scrape course ID from page's CDN image URLs
+        # Pattern: udemycdn.com/course/{size}/{course_id}_...
+        try:
+            response = requests.get(inputURL, timeout=30)
+            if response.status_code == 200:
+                # Extract course ID from CDN image URLs
+                match = re.search(r'udemycdn\.com/course/[^/]+/(\d+)', response.text)
+                if match:
+                    courseID = int(match.group(1))
+                    return [courseID, platform, cleanedLink]
+        except Exception as e:
+            print(f"Scraping failed: {e}")
 
-        # test:courseID
-        # print('courseId is:'+str(courseID))
-        return [courseID,platform,cleanedLink]
+        raise Exception(f"Could not find course ID for: {slug}")
         
 
     def getCourseDetailsFromApi(self,courseID):
